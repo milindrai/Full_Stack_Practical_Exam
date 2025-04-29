@@ -1,0 +1,41 @@
+<%- include('../layouts/main') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>My Vehicles</h1>
+    <a href="/vehicles/new" class="btn btn-primary">Add New Vehicle</a>
+</div>
+
+<div class="row">
+    <% if (vehicles && vehicles.length > 0) { %>
+        <% vehicles.forEach(vehicle => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="<%= vehicle.image %>" class="card-img-top" alt="<%= vehicle.vehicleName %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= vehicle.vehicleName %></h5>
+                        <p class="card-text">
+                            <strong>Brand:</strong> <%= vehicle.brand %><br>
+                            <strong>Price:</strong> $<%= vehicle.price %><br>
+                            <strong>Description:</strong> <%= vehicle.desc %>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <a href="/vehicles/<%= vehicle._id %>" class="btn btn-info">View</a>
+                            <a href="/vehicles/<%= vehicle._id %>/edit" class="btn btn-warning">Edit</a>
+                            <form action="/vehicles/<%= vehicle._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="col-12">
+            <div class="alert alert-info">
+                No vehicles found. <a href="/vehicles/new">Add your first vehicle</a>
+            </div>
+        </div>
+    <% } %>
+</div> 
